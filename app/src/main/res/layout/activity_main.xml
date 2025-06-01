@@ -189,6 +189,16 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"/>
 
+                <Button
+                    android:id="@+id/btnDeleteLastVote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="Eliminar último voto"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:background="@android:color/holo_red_dark"/>
+
                 <TextView
                     android:id="@+id/errorTextView"
                     android:layout_width="match_parent"

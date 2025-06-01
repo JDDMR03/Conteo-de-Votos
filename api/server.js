@@ -147,6 +147,44 @@ app.get('/voto/ultimo', async (req, res) => {
     }
 });
 
+app.delete('/voto/ultimo', async (req, res) => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+
+        // Primero obtenemos el último voto para verificar que existe
+        const lastVote = await conn.query('SELECT id FROM votes ORDER BY id DESC LIMIT 1');
+
+        if (lastVote.length === 0) {
+            return res.status(404).json({
+                status: 404,
+                message: "No hay votos para eliminar",
+            });
+        }
+
+        const lastId = lastVote[0].id;
+
+        // Eliminamos el voto
+        await conn.query('DELETE FROM votes WHERE id = ?', [lastId]);
+        await conn.commit();
+
+        res.status(200).json({
+            status: 200,
+            message: "Último voto eliminado correctamente",
+            deletedId: lastId
+        });
+    } catch (err) {
+        if (conn) await conn.rollback();
+        res.status(500).json({
+            status: 500,
+            message: "Error al eliminar el último voto",
+            error: err.message,
+        });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });

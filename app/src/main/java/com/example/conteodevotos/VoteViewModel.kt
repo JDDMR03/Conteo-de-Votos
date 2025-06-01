@@ -45,4 +45,27 @@ class VoteViewModel : ViewModel() {
             "MORENA VERDE" to vote.votesMORENAVERDE
         ).sortedByDescending { it.second }
     }
+
+    fun deleteLastVote() {
+        _isLoading.value = true
+        _error.value = null
+
+        viewModelScope.launch {
+            try {
+                val response = RetrofitClient.apiService.deleteLastVote()
+                if (response.status == 200) {
+                    // Actualizamos los datos después de eliminar
+                    fetchLastVote()
+                    _error.value = "Último voto eliminado correctamente"
+                } else {
+                    _error.value = response.message ?: "Error al eliminar el voto"
+                }
+            } catch (e: Exception) {
+                _error.value = e.message ?: "Error de conexión"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
 }

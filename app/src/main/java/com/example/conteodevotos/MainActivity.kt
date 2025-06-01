@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -56,6 +57,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
+        findViewById<Button>(R.id.btnDeleteLastVote).setOnClickListener {
+            // Mostrar confirmación antes de eliminar
+            AlertDialog.Builder(this)
+                .setTitle("Confirmar eliminación")
+                .setMessage("¿Estás seguro de que quieres eliminar el último voto registrado?")
+                .setPositiveButton("Eliminar") { _, _ ->
+                    // Eliminar el último voto si el usuario confirma
+                    voteViewModel.deleteLastVote()
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
+        }
+
         // Observar cambios en el estado de carga
         voteViewModel.isLoading.observe(this) { isLoading ->
             findViewById<ProgressBar>(R.id.progressBar).visibility = if (isLoading) android.view.View.VISIBLE else android.view.View.GONE
@@ -85,6 +99,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             } ?: run {
                 Toast.makeText(this, "Espera a que se carguen los votos actuales", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        findViewById<Button>(R.id.btnDeleteLastVote).setOnClickListener {
+            // Mostrar un diálogo de confirmación
+            AlertDialog.Builder(this)
+                .setTitle("Confirmar eliminación")
+                .setMessage("¿Estás seguro de que quieres eliminar el último voto registrado?")
+                .setPositiveButton("Eliminar") { dialog, which ->
+                    voteViewModel.deleteLastVote()
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
         }
 
         // Cargar datos iniciales

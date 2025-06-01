@@ -10,8 +10,10 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:title="Evolución de Votos"
-        app:titleTextColor="@android:color/white"/>
+        app:titleTextColor="@android:color/white"
+        app:menu="@menu/charts_menu"/> <!-- Agregamos un menú -->
 
+    <!-- Resto del layout permanece igual -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
