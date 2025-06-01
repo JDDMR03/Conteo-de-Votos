@@ -118,7 +118,7 @@ app.get('/votos/:id', async (req, res) => {
 });
 
 // Obtener el último voto (ID más alto)
-app.get('/votos/ultimo', async (req, res) => {
+app.get('/voto/ultimo', async (req, res) => {
     let conn;
     try {
         conn = await pool.getConnection();
