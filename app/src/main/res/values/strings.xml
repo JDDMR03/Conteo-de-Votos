@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Conteo de Votos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pan_party">Logo del partido PAN</string>
+    <string name="pt_party">Logo del partido PT</string>
+    <string name="movimiento_party">Logo del partido Movimiento</string>
+    <string name="pri_party">Logo del partido PRI</string>
+    <string name="morena_verde_party">Logo del partido Morena Verde</string>
+    <string name="navigation_drawer_open">Abrir menú</string>
+    <string name="navigation_drawer_close">Cerrar menú</string>
+    <string name="party_logo">Logo del partido</string>
 </resources>
